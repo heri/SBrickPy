@@ -14,7 +14,7 @@ client.rr_get_service(sbrick_id=sbrickid, timeout=5)
 client.rr_get_general(sbrick_id=sbrickid, timeout=5)
 
 # Stop power functions
-client.publish_stop(sbrick_id=sbrickid, channel_list=['00', '01', '02', '03'])
+client.publish_stop(sbrick_id=sbrickid, channel_list=['00', '01'])
 
 # Drive a power function
 # 00 00 vehicle goes left
