@@ -30,7 +30,7 @@ class PostHandler(tornado.web.RequestHandler):
     def post(self):
         timestamp = datetime.now()
         data_json = tornado.escape.json_decode(self.request.body)
-        allowed_commands = set(['37','38','39','40'])
+        allowed_commands = set(['37','38','39','40', '87', '65', '83', '68'])
         command = data_json['command']
         command = list(command.keys())
         command = set(command)
@@ -50,6 +50,14 @@ class PostHandler(tornado.web.RequestHandler):
             motor.forward_right(speed)
         elif '40' in command:
             motor.backward(100)
+        elif '87' in command:
+            motor.arm_up(speed)
+        elif '83' in command:
+            motor.arm_down(speed)
+        elif '65' in command:
+            motor.angle_up(speed)
+        elif '68' in command:
+            motor.angle_down(speed)
         else:
             motor.stop()
         
@@ -147,34 +155,41 @@ class Motor:
         """ Initialize  """
         self.pinForward = pinForward
         self.pinBackward = pinBackward
-        
+    
+    def angle_up(self, speed):
+        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='01', power='f0', exec_time=2)
+    
+    def angle_down(self, speed):
+        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='00', power='f0', exec_time=2)
+    
+    def arm_up(self, speed):
+        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='00', power='f0', exec_time=2)
+
+    def arm_down(self, speed):
+        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='01', power='f0', exec_time=2)
+
     def forward(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
-
 
     def forward_left(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
         client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power='f0', exec_time=2)
 
-
     def forward_right(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
         client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power='f0', exec_time=2)
 
-
     def backward(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power='f0', exec_time=2)
 
-
     def left(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power='f0', exec_time=1)
-
 
     def right(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power='f0', exec_time=1)
 
     def stop(self):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power='f0', exec_time=1)
+        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power='f0', exec_time=0.1)
 
 def make_app(settings):
     return tornado.web.Application([
