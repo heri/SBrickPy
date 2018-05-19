@@ -144,7 +144,10 @@ class MultipleKeysHandler(tornado.web.RequestHandler):
 class Motor:
 
     def __init__(self, pinForward, pinBackward, pinControlStraight,pinLeft, pinRight, pinControlSteering):
-
+        """ Initialize  """
+        self.pinForward = pinForward
+        self.pinBackward = pinBackward
+        
     def forward(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
 
