@@ -126,6 +126,13 @@ $ sudo python3 sbrick_server.py --connect ..... --sbrick-id <SBrick1 MAC> <SBric
 ### Code example of using SBrick Client API
 See `go.py` for short example of `SbrickIpcClient` class
 
+### Learning
+
+$ sudo python3 sbrick_server.py --connect --broker-ip 127.0.0.1 --broker-port 1883 --log-level debug --sbrick-id 11:22:33:44:55:66
+$ sudo python3 drive_api.py -s 50
+$ sudo python3 record.py
+
+
 ## SBrick Client API
 `SbrickIpcClient` class has below methods:
 * __SbrickIpcClient()__
