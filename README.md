@@ -35,6 +35,18 @@ Must make sure bluetooth control is active.
 $ sudo hciconfig hci0 up
 ```
 
+## Prerequesites
+```bash
+$ ping raspberrypi.local
+```
+# And you should see results like this:
+PING raspberrypi.local (192.168.1.11): 56 data bytes
+64 bytes from 192.168.1.11: icmp_seq=0 ttl=64 time=12.195 ms
+64 bytes from 192.168.1.11: icmp_seq=1 ttl=64 time=155.695 ms
+64 bytes from 192.168.1.11: icmp_seq=2 ttl=64 time=49.939 ms
+64 bytes from 192.168.1.11: icmp_seq=3 ttl=64 time=31.751 ms
+
+
 ### bluepy
 bluepy is a Python module which provides an interface to Bluetooth LE on Linux.<br />
 Ref: https://github.com/IanHarvey/bluepy
