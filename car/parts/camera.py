@@ -21,7 +21,7 @@ class Webcam(BaseCamera):
 
         super().__init__()
 
-        cmd = 'cd /usr/src/ffmpeg & sudo ffserver -f /etc/ff.conf_original & ffmpeg -v quiet -r 5 -s 320x240 -f video4linux2 -i /dev/video0 http://localhost/webcam.ffm'
+        cmd = 'cd /usr/src/ffmpeg & sudo ffserver -f /etc/ffserver.conf & ffmpeg -v quiet -r 5 -s 320x240 -f video4linux2 -i /dev/video0 http://localhost/webcam.ffm'
         subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
 
         # TODO: Read host from config file
