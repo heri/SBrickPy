@@ -14,7 +14,7 @@ client.rr_get_service(sbrick_id=sbrickid, timeout=5)
 client.rr_get_general(sbrick_id=sbrickid, timeout=5)
 
 # Stop power functions
-client.publish_stop(sbrick_id=sbrickid, channel_list=['00', '01'])
+# client.publish_stop(sbrick_id=sbrickid, channel_list=['00', '01'])
 
 # Drive a power function
 # 00 00 vehicle goes left
@@ -25,11 +25,14 @@ client.publish_stop(sbrick_id=sbrickid, channel_list=['00', '01'])
 # 02 01 arm orients up
 # 03 00 arm goes up
 # 03 01 arm goes down
-client.publish_drive(sbrick_id=sbrickid,
-                     channel='01',
-                     direction='00',
-                     power='f0',
-                     exec_time=3)
+client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
+client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power='f0', exec_time=2)
+
+client.publish_drive(sbrick_id=sbrickid, channel='03', direction='00', power='f0', exec_time=4)
+client.publish_drive(sbrick_id=sbrickid, channel='02', direction='01', power='f0', exec_time=2)
+
+client.publish_drive(sbrick_id=sbrickid, channel='03', direction='01', power='f0', exec_time=4)
+client.publish_drive(sbrick_id=sbrickid, channel='02', direction='00', power='f0', exec_time=2)
 
 # MQTT disconnect
 client.disconnect()
