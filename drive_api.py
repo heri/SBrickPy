@@ -58,8 +58,6 @@ class PostHandler(tornado.web.RequestHandler):
             motor.angle_up(speed)
         elif '68' in command:
             motor.angle_down(speed)
-        else:
-            motor.stop()
         
 # This only works on data from the same live python process. It doesn't 
 # read from the session.txt file. It only sorts data from the active
