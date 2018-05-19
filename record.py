@@ -42,8 +42,8 @@ class MyMotionDetector(object):
         return len(s)
 
 with picamera.PiCamera() as camera:
-    camera.resolution = (640, 480)
-    camera.framerate = 10
+    camera.resolution = (320, 240)
+    camera.framerate = 30
     camera.start_recording(
         # Throw away the video data, but make sure we're using H.264
         'raspcamera_feed.h264', format='h264',

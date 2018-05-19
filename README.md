@@ -128,7 +128,7 @@ See `go.py` for short example of `SbrickIpcClient` class
 
 ### Learning
 
-$ sudo python3 sbrick_server.py --connect --broker-ip 127.0.0.1 --broker-port 1883 --log-level debug --sbrick-id 11:22:33:44:55:66
+$ sudo python3 sbrick_server.py --connect --broker-ip 127.0.0.1 --broker-port 1883 --log-level debug --sbrick-id 88:6B:0F:43:A9:35
 $ sudo python3 drive_api.py -s 50
 $ sudo python3 record.py
 

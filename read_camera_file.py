@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import argparse
 
-# example: python read_camera_file.py -f /Users/ryanzotti/Documents/repos/OpenCV_examples/output.mov
+# example: python read_camera_file.py -f /Users/raph/Documents/repos/OpenCV_examples/raspcamera_feed.h264
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-f", "--file", required = True,

@@ -27,7 +27,7 @@ def process_session(session_path,gamma_map,rgb=True):
     # Overlay target images for visual troubleshooting of processed video
     up_arrow, left_arrow, right_arrow = read_arrow_key_images()
 
-    cap = cv2.VideoCapture(session_path + "/output.mov")
+    cap = cv2.VideoCapture(session_path + "/raspcamera_feed.h264")
     video_timestamps = []
     with open(session_path + '/video_timestamps.txt') as video_timestamps_reader:
         for line in video_timestamps_reader:
