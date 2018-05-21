@@ -95,56 +95,8 @@ class StoreLogEntriesHandler(tornado.web.RequestHandler):
 class MultipleKeysHandler(tornado.web.RequestHandler):
 
     def get(self):
-        print("HelloWorld")
-        self.write('''
-                <!DOCTYPE html>
-                <html>
-                    <head>
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-                        <script>
-                            var keys = {};
-
-                            $(document).keydown(function (e) {
-                                keys[e.which] = true;
-                                
-                                var json_upload = JSON.stringify({command:keys});
-                                var xmlhttp = new XMLHttpRequest(); 
-                                xmlhttp.open("POST", "/post");
-                                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                xmlhttp.send(json_upload);
-
-                                printKeys();
-                            });
-
-                            $(document).keyup(function (e) {
-                                delete keys[e.which];
-                                
-                                var json_upload = JSON.stringify({command:keys});
-                                var xmlhttp = new XMLHttpRequest(); 
-                                xmlhttp.open("POST", "/post");
-                                xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                xmlhttp.send(json_upload);
-
-                                printKeys();
-                            });
-
-                            function printKeys() {
-                                var html = '';
-                                for (var i in keys) {
-                                    if (!keys.hasOwnProperty(i)) continue;
-                                    html += '<p>' + i + '</p>';
-                                }
-                                $('#out').html(html);
-                            }
-
-                        </script>
-                    </head>
-                    <body>
-                        Click in this frame, then try holding down some keys
-                        <div id="out"></div>
-                    </body>
-                </html>
-            ''')
+        print("Hello SBrickers!")
+        self.render('index.html')
 
 
 class Motor:
