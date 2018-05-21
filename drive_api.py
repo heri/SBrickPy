@@ -91,7 +91,12 @@ class StoreLogEntriesHandler(tornado.web.RequestHandler):
                     writer.write(log_entry+"\n")
                 print(log_entry)
         self.write("Finished")
-   
+
+class StyleHandler(tornado.web.RequestHandler):
+
+    def get(self):
+        self.render('style.css')
+
 class MultipleKeysHandler(tornado.web.RequestHandler):
 
     def get(self):
@@ -143,7 +148,7 @@ class Motor:
 
 def make_app(settings):
     return tornado.web.Application([
-        (r"/drive",MultipleKeysHandler),(r"/post", PostHandler, {'settings':settings}),
+        (r"/drive",MultipleKeysHandler), (r"/style.css",StyleHandler),(r"/post", PostHandler, {'settings':settings}),
         (r"/StoreLogEntries",StoreLogEntriesHandler)
     ])
 
