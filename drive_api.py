@@ -95,7 +95,7 @@ class StoreLogEntriesHandler(tornado.web.RequestHandler):
 class StyleHandler(tornado.web.RequestHandler):
 
     def get(self):
-        self.render('style.css')
+        self.render_linked_css('style.css')
 
 class MultipleKeysHandler(tornado.web.RequestHandler):
 
@@ -148,8 +148,10 @@ class Motor:
 
 def make_app(settings):
     return tornado.web.Application([
-        (r"/drive",MultipleKeysHandler), (r"/style.css",StyleHandler),(r"/post", PostHandler, {'settings':settings}),
-        (r"/StoreLogEntries",StoreLogEntriesHandler)
+        (r"/drive",MultipleKeysHandler), 
+        (r"/post", PostHandler, {'settings':settings}),
+        (r"/StoreLogEntries",StoreLogEntriesHandler),
+        (r"/style.css",StyleHandler, {'settings':settings})
     ])
 
 if __name__ == "__main__":
@@ -160,7 +162,10 @@ if __name__ == "__main__":
     args = vars(ap.parse_args())
     motor = Motor(16, 18, 22, 19, 21, 23)
     log_entries = []
-    settings = {'speed':float(args['speed_percent'])}
+    settings = {
+        'speed':float(args['speed_percent']),
+        'static_path': os.path.join(os.path.dirname(__file__), STATIC_DIRNAME)
+        }
     app = make_app(settings)
     app.listen(81)
     tornado.ioloop.IOLoop.current().start()
