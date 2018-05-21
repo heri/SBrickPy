@@ -126,6 +126,18 @@ $ sudo python3 sbrick_server.py --connect ..... --sbrick-id <SBrick1 MAC> <SBric
 ### Code example of using SBrick Client API
 See `go.py` for short example of `SbrickIpcClient` class
 
+### Check Videofeed
+
+You can use the following commands to check correct positioning of camera, potential obstruction and any other issues. Note however that a live videofeed will have lag and dropped frames, depending on your frame size, color depth and wireless performance.
+
+On Raspberry pi
+
+$ raspivid -t 0 -l -o tcp://0.0.0.0:3333
+
+On computer:
+
+vlc tcp/h264://192.168.1.13:3333
+
 ### Learning
 
 $ sudo python3 sbrick_server.py --connect --broker-ip 127.0.0.1 --broker-port 1883 --log-level debug --sbrick-id 88:6B:0F:43:A9:35
