@@ -5,13 +5,15 @@ client = SbrickIpcClient(broker_ip='127.0.0.1', broker_port=1883)
 client.connect()
 
 # Get voltage and temperature of a SBrick device
-client.rr_get_adc(sbrick_id=sbrickid, timeout=5)
+json_response = client.rr_get_adc(sbrick_id=sbrickid, timeout=5)
+
+# output json_response
 
 # Get information of UUID, sercies and characteristics of a SBrick device
-client.rr_get_service(sbrick_id=sbrickid, timeout=5)
+json_response = client.rr_get_service(sbrick_id=sbrickid, timeout=5)
 
 # Get general information of a SBrick device
-client.rr_get_general(sbrick_id=sbrickid, timeout=5)
+json_response = client.rr_get_general(sbrick_id=sbrickid, timeout=5)
 
 # Stop power functions
 # client.publish_stop(sbrick_id=sbrickid, channel_list=['00', '01'])

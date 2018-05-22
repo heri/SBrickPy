@@ -58,6 +58,7 @@ class PostHandler(tornado.web.RequestHandler):
             motor.angle_up(speed)
         elif '68' in command:
             motor.angle_down(speed)
+        self.write(client.rr_get_adc(sbrick_id=sbrickid, timeout=3))
         
 # This only works on data from the same live python process. It doesn't 
 # read from the session.txt file. It only sorts data from the active
@@ -91,11 +92,6 @@ class StoreLogEntriesHandler(tornado.web.RequestHandler):
                     writer.write(log_entry+"\n")
                 print(log_entry)
         self.write("Finished")
-
-class StyleHandler(tornado.web.RequestHandler):
-
-    def get(self):
-        self.render_linked_css('style.css')
 
 class MultipleKeysHandler(tornado.web.RequestHandler):
 
@@ -150,8 +146,7 @@ def make_app(settings):
     return tornado.web.Application([
         (r"/drive",MultipleKeysHandler), 
         (r"/post", PostHandler, {'settings':settings}),
-        (r"/StoreLogEntries",StoreLogEntriesHandler),
-        (r"/style.css",StyleHandler, {'settings':settings})
+        (r"/StoreLogEntries",StoreLogEntriesHandler)
     ])
 
 if __name__ == "__main__":
@@ -163,8 +158,7 @@ if __name__ == "__main__":
     motor = Motor(16, 18, 22, 19, 21, 23)
     log_entries = []
     settings = {
-        'speed':float(args['speed_percent']),
-        'static_path': os.path.join(os.path.dirname(__file__), STATIC_DIRNAME)
+        'speed':float(args['speed_percent'])
         }
     app = make_app(settings)
     app.listen(81)
