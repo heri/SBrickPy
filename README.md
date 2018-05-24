@@ -10,7 +10,7 @@ Aarchitecture overview: <br />
 
 Todos:
 * Show voltage and temperature
-* Add dynamicdns
+* Add httpauth, dynamicdns
 * Add speed (reading from wheel rotation speed)
 * Add back camera
 * Add angle effectuator
