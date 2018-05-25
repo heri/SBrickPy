@@ -73,7 +73,7 @@
         img.onclick = imageOnclick;
         img.width = 512;
         img.height = 384;
-        img.src = "http://192.168.1.13:8080/?action=snapshot&n=" + (++imageNr);
+        img.src = "http://raspberrypi.local:8080/?action=snapshot&n=" + (++imageNr);
         var webcam = document.getElementById("webcam");
         window.info = document.getElementById('info').firstChild;
         window.ravgFps = document.getElementById('ravgfps').firstChild;

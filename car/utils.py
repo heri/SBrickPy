@@ -189,6 +189,7 @@ NETWORKING
 
 def my_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    # Change to raspberry ip 
     s.connect(('192.0.0.8', 1027))
     return s.getsockname()[0]
 
