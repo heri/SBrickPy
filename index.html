@@ -25,10 +25,9 @@
             
             var json_upload = JSON.stringify({command:keys});
             $.post('/post', json_upload, function(res){
-              console.log(res);
-
-              $('#temperature').html(res.temperature); 
-              $('#voltage').html(res.voltage);
+              val = JSON.parse(res);
+              $('#temperature').html(val.temperature); 
+              $('#voltage').html(val.voltage);
               printKeys();
             });
 
@@ -39,14 +38,14 @@
             
             var json_upload = JSON.stringify({command:keys});
             $.post('/post', json_upload, function(res){
-              $('#temperature').html(res.temperature); 
-              $('#voltage').html(res.voltage);
+              val = JSON.parse(res);
+              $('#temperature').html(val.temperature); 
+              $('#voltage').html(val.voltage);
               printKeys();
             });
         });
 
-        function printKeys() {
-            var html = '';
+        fui  var html = '';
             for (var i in keys) {
                 if (!keys.hasOwnProperty(i)) continue;
                 html += '<p>Key: ' + i + '</p>';
