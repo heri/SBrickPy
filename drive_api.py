@@ -58,7 +58,8 @@ class PostHandler(tornado.web.RequestHandler):
             motor.angle_up(speed)
         elif '68' in command:
             motor.angle_down(speed)
-        self.write(client.rr_get_adc(sbrick_id=sbrickid, timeout=3))
+        json = client.rr_get_adc(sbrick_id=sbrickid, timeout=3)
+        self.render(json)
         
 # This only works on data from the same live python process. It doesn't 
 # read from the session.txt file. It only sorts data from the active

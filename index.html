@@ -29,7 +29,9 @@
             xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xmlhttp.send(json_upload);
 
-            printKeys();
+            $('#out').html(xmlhttp.responseText);
+
+            // printKeys();
         });
 
         $(document).keyup(function (e) {
@@ -40,6 +42,8 @@
             xmlhttp.open("POST", "/post");
             xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xmlhttp.send(json_upload);
+            
+            $('#out').html(xmlhttp.responseText);
 
             printKeys();
         });
