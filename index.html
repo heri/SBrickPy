@@ -45,7 +45,8 @@
             });
         });
 
-        fui  var html = '';
+        function printKeys() {
+            var html = '';
             for (var i in keys) {
                 if (!keys.hasOwnProperty(i)) continue;
                 html += '<p>Key: ' + i + '</p>';
