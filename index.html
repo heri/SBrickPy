@@ -26,8 +26,8 @@
             var json_upload = JSON.stringify({command:keys});
             $.post('/post', json_upload, function(res){
               val = JSON.parse(res);
-              $('#temperature').html(val.temperature); 
-              $('#voltage').html(val.voltage);
+              $('#temperature').html(val.temperature.toFixed(2)); 
+              $('#voltage').html(val.voltage.toFixed(2));
               printKeys();
             });
 
@@ -39,8 +39,8 @@
             var json_upload = JSON.stringify({command:keys});
             $.post('/post', json_upload, function(res){
               val = JSON.parse(res);
-              $('#temperature').html(val.temperature); 
-              $('#voltage').html(val.voltage);
+              $('#temperature').html(val.temperature.toFixed(2)); 
+              $('#voltage').html(val.voltage.toFixed(2));
               printKeys();
             });
         });
@@ -186,7 +186,7 @@
     <p> Drive as if your only source of information is the camera - No eye or hand of god</p>
 
         <div id="webcam" style="width:512px;height:394px"><noscript><img src="./?action=snapshot" width="512px" height="384px" /></noscript></div>
-        <div>Voltage: <span id="voltage"></span>| Temperature: <span id="temperature"></span></div>
+        <div><span id="voltage"></span>V | <span id="temperature"></span>C</div>
         <div id="out"></div>
 
       <p>&copy; Work by <a href="http://studiozenkai.com">Heri</a></p>
