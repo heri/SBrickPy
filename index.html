@@ -15,7 +15,7 @@
 
         window.addEventListener("keydown", function(e) {
             // space and arrow keys
-            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            if([37,38,39,40, 87, 65, 83, 68].indexOf(e.keyCode) > -1) {
                 e.preventDefault();
             }
         }, false);
@@ -24,35 +24,32 @@
             keys[e.which] = true;
             
             var json_upload = JSON.stringify({command:keys});
-            var xmlhttp = new XMLHttpRequest(); 
-            xmlhttp.open("POST", "/post");
-            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xmlhttp.send(json_upload);
+            $.post('/post', json_upload, function(res){
+              console.log(res);
 
-           $('#temperature').html(xmlhttp.responseText.temperature); 
-           $('#voltage').html(xmlhttp.responseText.voltage);
-           printKeys();
+              $('#temperature').html(res.temperature); 
+              $('#voltage').html(res.voltage);
+              printKeys();
+            });
+
         });
 
         $(document).keyup(function (e) {
             delete keys[e.which];
             
             var json_upload = JSON.stringify({command:keys});
-            var xmlhttp = new XMLHttpRequest(); 
-            xmlhttp.open("POST", "/post");
-            xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xmlhttp.send(json_upload);
-
-           $('#temperature').html(xmlhttp.responseText.temperature); 
-           $('#voltage').html(xmlhttp.responseText.voltage);
-           printKeys();
+            $.post('/post', json_upload, function(res){
+              $('#temperature').html(res.temperature); 
+              $('#voltage').html(res.voltage);
+              printKeys();
+            });
         });
 
         function printKeys() {
             var html = '';
             for (var i in keys) {
                 if (!keys.hasOwnProperty(i)) continue;
-                html += '<p>' + i + '</p>';
+                html += '<p>Key: ' + i + '</p>';
             }
             $('#out').html(html);
         }
