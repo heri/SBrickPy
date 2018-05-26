@@ -142,15 +142,16 @@ $ ./mjpg_streamer -o "output_http.so -w ./www" -i "input_raspicam.so -x 640 -y 4
 
 ### Learning
 
-Open another tab
+Open another tab to get SBrick listening to commands
 $ sudo python3 sbrick_server.py --connect --broker-ip 127.0.0.1 --broker-port 1883 --log-level debug --sbrick-id 88:6B:0F:43:A9:35
 
-Open a third tab
+Open a third tab to get Raspberry Pi send user commands to SBrick Pi through Bluetooth
 $ sudo python3 drive_api.py -s 50
 
 Open a last tab to record stream and session commands
 $ sudo python3 record.py
 
+Happy driving
 
 ## SBrick Client API
 `SbrickIpcClient` class has below methods:
