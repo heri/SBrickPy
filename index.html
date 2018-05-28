@@ -208,13 +208,13 @@
 
         $(document).keyup(function (e) {
             delete keys[e.which];
-            // var json_upload = JSON.stringify({command:keys});
-            // $.post('/post', json_upload, function(res){
-            //   val = JSON.parse(res);
-            //   $('#temperature').html(val.temperature.toFixed(2)); 
-            //   $('#voltage').html(val.voltage.toFixed(2));
-            //   printKeys();
-            // });
+            var json_upload = JSON.stringify({command:keys});
+            $.post('/post', json_upload, function(res){
+              val = JSON.parse(res);
+              $('#temperature').html(val.temperature.toFixed(2)); 
+              $('#voltage').html(val.voltage.toFixed(2));
+              printKeys();
+            });
         });
 
         function printKeys() {
