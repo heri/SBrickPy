@@ -125,11 +125,11 @@ class Motor:
 
     def forward_left(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power='f0', exec_time=1)
 
     def forward_right(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power='f0', exec_time=1)
 
     def backward(self, speed):
         client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power='f0', exec_time=2)
