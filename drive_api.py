@@ -41,7 +41,7 @@ class PostHandler(tornado.web.RequestHandler):
         with open(file_path,"a") as writer:
             writer.write(log_entry+"\n")
         print(log_entry)
-        speed = self.settings['speed']
+        speed = str(self.settings['speed'])
         if '37' in command:
             motor.forward_left(speed)
         elif '38' in command:
