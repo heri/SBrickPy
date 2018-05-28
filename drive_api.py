@@ -109,39 +109,39 @@ class Motor:
         self.pinBackward = pinBackward
     
     def angle_up(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='01', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='01', power=speed, exec_time=2)
     
     def angle_down(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='00', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='00', power=speed, exec_time=2)
     
     def arm_up(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='00', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='00', power=speed, exec_time=2)
 
     def arm_down(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='01', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='01', power=speed, exec_time=2)
 
     def forward(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power=speed, exec_time=2)
 
     def forward_left(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power='f0', exec_time=1)
+        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power=speed, exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power=speed, exec_time=1)
 
     def forward_right(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power='f0', exec_time=2)
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power='f0', exec_time=1)
+        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power=speed, exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power=speed, exec_time=1)
 
     def backward(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power='f0', exec_time=2)
+        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power=speed, exec_time=2)
 
     def left(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power='f0', exec_time=1)
+        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power=speed, exec_time=1)
 
     def right(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power='f0', exec_time=1)
+        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power=speed, exec_time=1)
 
     def stop(self):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power='f0', exec_time=0.1)
+        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power=speed, exec_time=0.1)
 
 def make_app(settings):
     return tornado.web.Application([
@@ -154,7 +154,7 @@ if __name__ == "__main__":
 
     # Parse CLI args
     ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--speed_percent", required=True, help="Between 0 and 100")
+    ap.add_argument("-s", "--speed_percent", required=True, help="In base 16, Between 00 (00) and ff (255)")
     args = vars(ap.parse_args())
     motor = Motor(16, 18, 22, 19, 21, 23)
     log_entries = []
