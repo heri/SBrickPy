@@ -54,6 +54,11 @@ PING raspberrypi.local (192.168.1.11): 56 data bytes
 64 bytes from 192.168.1.11: icmp_seq=2 ttl=64 time=49.939 ms
 64 bytes from 192.168.1.11: icmp_seq=3 ttl=64 time=31.751 ms
 
+Optional: you can choose a raspberry hostname of your preference by editing file:
+
+$ sudo vi /etc/hostname
+$ reboot
+
 
 ### bluepy
 bluepy is a Python module which provides an interface to Bluetooth LE on Linux.<br />
