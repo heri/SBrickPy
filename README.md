@@ -9,13 +9,13 @@ Aarchitecture overview: <br />
 <img src="sbrick_arch.jpg" width="480" alt="Combined Image" />
 
 Todos:
-* Show voltage and temperature
+* (done) Show voltage and temperature
 * Add httpauth, dynamicdns
 * Add speed (reading from wheel rotation speed)
-* Add back camera
+* Add back camera (optional)
 * Add angle effectuator
 * Add top camera (optional)
-* ROS integration for multi-steps (pathing)
+* ROS integration for multi-steps (pathing) (optional)
 
 ## SBrick Protocol
 SbrickAPI is based on SBrick protocol 17 (https://social.sbrick.com/wiki/view/pageId/11/slug/the-sbrick-ble-protocol)
