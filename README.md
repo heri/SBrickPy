@@ -11,12 +11,12 @@ Aarchitecture overview: <br />
 Todos:
 * Main car. Equivalent to main robot loader/builder/truck/renovator IRL
   * (done) Show voltage and temperature
-  * Power/Speed shhould start from half power then increase if same command is pressed
-  * Add speed - from speed settings
+  * Add camera with face recognition. Stop robot if recognize. Open door for delivery if authorized.
+  * Add variable speed, with cursor command on page
   * Add httpauth, dynamicdns with access from outside network
-  * Add pan/tilt platform
-  * Use USB controller (Playstation, XBox) to drive
   * Should have actuators (arms) equivalent to welding
+  * Add pan/tilt platform (optional)
+  * Use USB controller (Playstation, XBox) to drive (optional)
 * Indoor positioning system with cameras placed on ceiling, car with "QR Code". Equivalent to a drone IRL
   * Add pathing A to B
 * Protected Garage with wireless charging. Equivalent to a base IRL
