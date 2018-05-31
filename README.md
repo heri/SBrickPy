@@ -10,12 +10,10 @@ Aarchitecture overview: <br />
 
 Todos:
 * (done) Show voltage and temperature
-* Add httpauth, dynamicdns
-* Add speed (reading from wheel rotation speed)
-* Add back camera (optional)
-* Add angle effectuator
-* Add top camera (optional)
-* ROS integration for multi-steps (pathing) (optional)
+* Add speed - from speed settings
+* Add httpauth, dynamicdns with access from outside network
+* Add pan/tilt platform
+* Add pathing A to B
 
 ## SBrick Protocol
 SbrickAPI is based on SBrick protocol 17 (https://social.sbrick.com/wiki/view/pageId/11/slug/the-sbrick-ble-protocol)
