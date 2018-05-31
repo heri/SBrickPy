@@ -9,13 +9,17 @@ Aarchitecture overview: <br />
 <img src="sbrick_arch.jpg" width="480" alt="Combined Image" />
 
 Todos:
-* (done) Show voltage and temperature
-* Add speed - from speed settings
-* Add httpauth, dynamicdns with access from outside network
-* Add pan/tilt platform
-* Add pathing A to B
+* Main car
+  * (done) Show voltage and temperature
+  * Power/Speed shhould start from half power then increase if same command is pressed
+  * Add speed - from speed settings
+  * Add httpauth, dynamicdns with access from outside network
+  * Add pan/tilt platform
+  * Use USB controller (Playstation, XBox) to drive
+* Indoor positioning system with cameras placed on ceiling, car with "QR Code" or equivalent on top
+  * Add pathing A to B
+* Protected Garage with wireless charging
 
-## SBrick Protocol
 SbrickAPI is based on SBrick protocol 17 (https://social.sbrick.com/wiki/view/pageId/11/slug/the-sbrick-ble-protocol)
 
 
