@@ -9,16 +9,17 @@ Aarchitecture overview: <br />
 <img src="sbrick_arch.jpg" width="480" alt="Combined Image" />
 
 Todos:
-* Main car
+* Main car. Equivalent to main robot loader/builder/truck/renovator IRL
   * (done) Show voltage and temperature
   * Power/Speed shhould start from half power then increase if same command is pressed
   * Add speed - from speed settings
   * Add httpauth, dynamicdns with access from outside network
   * Add pan/tilt platform
   * Use USB controller (Playstation, XBox) to drive
-* Indoor positioning system with cameras placed on ceiling, car with "QR Code" or equivalent on top
+  * Should have actuators (arms) equivalent to welding
+* Indoor positioning system with cameras placed on ceiling, car with "QR Code". Equivalent to a drone IRL
   * Add pathing A to B
-* Protected Garage with wireless charging
+* Protected Garage with wireless charging. Equivalent to a base IRL
 
 SbrickAPI is based on SBrick protocol 17 (https://social.sbrick.com/wiki/view/pageId/11/slug/the-sbrick-ble-protocol)
 
