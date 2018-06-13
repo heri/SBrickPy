@@ -11,12 +11,14 @@ Aarchitecture overview: <br />
 Todos:
 * Main car. Equivalent to main robot loader/builder/truck/renovator IRL
   * (done) Show voltage and temperature
-  * Power/Speed shhould start from half power then increase if same command is pressed
-  * Add speed - from speed settings
+  * Add variable speed, with cursor command on page
   * Add httpauth, dynamicdns with access from outside network
-  * Add pan/tilt platform
-  * Use USB controller (Playstation, XBox) to drive
-  * Should have actuators (arms) equivalent to welding
+  * Add removable actuator to front: loader, wallet transport, welding, 3-degree robot arm, sensor (soil humidity)
+  * Use USB controller (Playstation, XBox) to drive (optional)
+* Camera sensor:
+  * Add a combination of LIDAR fixed cam and a m4/3 Z-CAM E1 camera with pan/tilt as secondary large sensor camera. Use RC battery to power. Use FPV hmdi converter to feed video
+  * Add face recognition to main camera. Stop robot if recognize. Open door for delivery if authorized.
+  * Add HDR+ to main camera http://timothybrooks.com/tech/hdr-plus/
 * Indoor positioning system with cameras placed on ceiling, car with "QR Code". Equivalent to a drone IRL
   * Add pathing A to B
 * Protected Garage with wireless charging. Equivalent to a base IRL
