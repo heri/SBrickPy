@@ -49,7 +49,7 @@ class PostHandler(tornado.web.RequestHandler):
         elif '39' in command:
             motor.forward_right(speed)
         elif '40' in command:
-            motor.backward(100)
+            motor.backward(speed)
         elif '87' in command:
             motor.arm_up(speed)
         elif '83' in command:
@@ -154,12 +154,12 @@ if __name__ == "__main__":
 
     # Parse CLI args
     ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--speed_percent", required=True, help="In base 16, Between 00 (00) and ff (255)")
+    ap.add_argument("-s", "--speed_percent", required=True, help="In base 16, Between aa and ff (100% voltage)")
     args = vars(ap.parse_args())
     motor = Motor(16, 18, 22, 19, 21, 23)
     log_entries = []
     settings = {
-        'speed':float(args['speed_percent'])
+        'speed':(args['speed_percent'])
         }
     app = make_app(settings)
     app.listen(81)
