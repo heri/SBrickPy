@@ -1,18 +1,18 @@
+#!/usr/bin/env python
+
+# drives RC car with receiver, servo and brushed motor
+# requires pigpio daemon to be running
+# sudo pigpiod
+
 import argparse
 import tornado.ioloop
 import tornado.web
 from datetime import datetime
 import os
+import RPi.GPIO as GPIO
 from operator import itemgetter
 import requests
-from time import sleep
-
-# SBrick
-from lib.sbrick_m2mipc import SbrickIpcClient
-sbrickid = '88:6B:0F:43:A9:35'
-# MQTT connect
-client = SbrickIpcClient(broker_ip='127.0.0.1', broker_port=1883)
-client.connect()
+from time import sleepS
 
 class PostHandler(tornado.web.RequestHandler):
 
@@ -50,16 +50,8 @@ class PostHandler(tornado.web.RequestHandler):
             motor.forward_right(speed)
         elif '40' in command:
             motor.backward(speed)
-        elif '87' in command:
-            motor.arm_up(speed)
-        elif '83' in command:
-            motor.arm_down(speed)
-        elif '65' in command:
-            motor.angle_up(speed)
-        elif '68' in command:
-            motor.angle_down(speed)
-        json = client.rr_get_adc(sbrick_id=sbrickid, timeout=3)
-        self.write(json)
+        else:
+            motor.stop()
         
 # This only works on data from the same live python process. It doesn't 
 # read from the session.txt file. It only sorts data from the active
@@ -103,45 +95,63 @@ class MultipleKeysHandler(tornado.web.RequestHandler):
 
 class Motor:
 
-    def __init__(self, pinForward, pinBackward, pinControlStraight,pinLeft, pinRight, pinControlSteering):
+    def __init__(self, pinControlSteering, pinForward):
         """ Initialize  """
-        self.pinForward = pinForward
-        self.pinBackward = pinBackward
-    
-    def angle_up(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='01', power=speed, exec_time=2)
-    
-    def angle_down(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='02', direction='00', power=speed, exec_time=2)
-    
-    def arm_up(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='00', power=speed, exec_time=2)
+        self.pinControlSteering = pinControlSteering
+        GPIO.setup(self.pinControlSteering, GPIO.OUT)
 
-    def arm_down(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='03', direction='01', power=speed, exec_time=2)
+        self.pwm_steering = GPIO.PWM
+        self.pwm_steering.start(7.5)
+        
+        self.pinForward = pinForward
+        self.pwm_forward = pigpio.pi()
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1000)
 
     def forward(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power=speed, exec_time=2)
+        """ pinForward is the forward Pin, so we change its duty
+             cycle according to speed. """
+        self.pwm_steering.ChangeDutyCycle(7.5)   
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)
+        time.sleep(0.2)  
 
     def forward_left(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power=speed, exec_time=2)
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power=speed, exec_time=1)
+        """ pinForward is the forward Pin, so we change its duty
+             cycle according to speed. """
+        self.pwm_steering.ChangeDutyCycle(2.5)  
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)   
+        time.sleep(0.2)    
 
     def forward_right(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='00', power=speed, exec_time=2)
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power=speed, exec_time=1)
+        """ pinForward is the forward Pin, so we change its duty
+             cycle according to speed. """
+        self.pwm_steering.ChangeDutyCycle(23.5)     
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)   
+        time.sleep(0.2)  
 
     def backward(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power=speed, exec_time=2)
+        """ pinBackward is the forward Pin, so we change its duty
+             cycle according to speed. """
+        self.pinControlSteering.ChangeDutyCycle(7.5)     
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1000)   
 
     def left(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='00', power=speed, exec_time=1)
+        """ pinForward is the forward Pin, so we change its duty
+             cycle according to speed. """
+        self.pinControlSteering.ChangeDutyCycle(2.5)     
+        time.sleep(0.2)  
 
     def right(self, speed):
-        client.publish_drive(sbrick_id=sbrickid, channel='00', direction='01', power=speed, exec_time=1)
+        """ pinForward is the forward Pin, so we change its duty
+             cycle according to speed. """
+        self.pinControlSteering.ChangeDutyCycle(12.5)     
+        time.sleep(0.2)   
 
     def stop(self):
-        client.publish_drive(sbrick_id=sbrickid, channel='01', direction='01', power=speed, exec_time=0.1)
+        """ Set the duty cycle of both control pins to zero to stop the motor. """
+        self.pinControlSteering.ChangeDutyCycle(7.5)  
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)   
+   
+        time.sleep(0.2)  
 
 def make_app(settings):
     return tornado.web.Application([
@@ -154,9 +164,10 @@ if __name__ == "__main__":
 
     # Parse CLI args
     ap = argparse.ArgumentParser()
-    ap.add_argument("-s", "--speed_percent", required=True, help="In base 16, Between aa and ff (100% voltage)")
+    ap.add_argument("-s", "--speed_percent", required=True, help="Between 0 and 100")
     args = vars(ap.parse_args())
-    motor = Motor(16, 18, 22, 19, 21, 23)
+    GPIO.setmode(GPIO.BOARD)
+    motor = Motor(12, 4)
     log_entries = []
     settings = {
         'speed':(args['speed_percent'])
