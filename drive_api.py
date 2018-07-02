@@ -113,28 +113,32 @@ class Motor:
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(7.5)   
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)
         time.sleep(0.2)  
 
     def forward_left(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(2.5)  
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)   
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
         time.sleep(0.2)    
+        self.pwm_steering.ChangeDutyCycle(7.5)  
+        time.sleep(0.02)  
 
     def forward_right(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(23.5)     
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)   
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
         time.sleep(0.2)  
+        self.pwm_steering.ChangeDutyCycle(7.5)  
+        time.sleep(0.02)  
 
     def backward(self, speed):
         """ pinBackward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(7.5)     
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1000)   
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
 
     def left(self, speed):
         """ pinForward is the forward Pin, so we change its duty
@@ -151,7 +155,7 @@ class Motor:
     def stop(self):
         """ Set the duty cycle of both control pins to zero to stop the motor. """
         self.pwm_steering.ChangeDutyCycle(7.5)  
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)   
+        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
    
         time.sleep(0.2)  
 
