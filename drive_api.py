@@ -145,12 +145,14 @@ class Motor:
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(2.5)     
         time.sleep(0.2)  
+        self.pwm_steering.ChangeDutyCycle(7.5)     
 
     def right(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(12.5)     
         time.sleep(0.2)   
+        self.pwm_steering.ChangeDutyCycle(7.5)     
 
     def stop(self):
         """ Set the duty cycle of both control pins to zero to stop the motor. """
