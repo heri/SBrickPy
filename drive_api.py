@@ -12,7 +12,9 @@ import os
 import RPi.GPIO as GPIO
 from operator import itemgetter
 import requests
-from time import sleepS
+import time
+from time import sleep
+import pigpio
 
 class PostHandler(tornado.web.RequestHandler):
 
@@ -100,7 +102,7 @@ class Motor:
         self.pinControlSteering = pinControlSteering
         GPIO.setup(self.pinControlSteering, GPIO.OUT)
 
-        self.pwm_steering = GPIO.PWM
+        self.pwm_steering = GPIO.PWM(self.pinControlSteering, 50)
         self.pwm_steering.start(7.5)
         
         self.pinForward = pinForward
@@ -131,24 +133,24 @@ class Motor:
     def backward(self, speed):
         """ pinBackward is the forward Pin, so we change its duty
              cycle according to speed. """
-        self.pinControlSteering.ChangeDutyCycle(7.5)     
+        self.pwm_steering.ChangeDutyCycle(7.5)     
         self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1000)   
 
     def left(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
-        self.pinControlSteering.ChangeDutyCycle(2.5)     
+        self.pwm_steering.ChangeDutyCycle(2.5)     
         time.sleep(0.2)  
 
     def right(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
-        self.pinControlSteering.ChangeDutyCycle(12.5)     
+        self.pwm_steering.ChangeDutyCycle(12.5)     
         time.sleep(0.2)   
 
     def stop(self):
         """ Set the duty cycle of both control pins to zero to stop the motor. """
-        self.pinControlSteering.ChangeDutyCycle(7.5)  
+        self.pwm_steering.ChangeDutyCycle(7.5)  
         self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1300)   
    
         time.sleep(0.2)  

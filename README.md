@@ -38,14 +38,6 @@ Optional: you can choose a raspberry hostname of your preference by editing file
 $ sudo vi /etc/hostname
 $ reboot
 
-
-### pyuv
-pyuv is a Python module which provides an interface to libuv.<br />
-Ref: https://github.com/saghul/pyuv
-```bash
-$ sudo pip3 install pyuv
-```
-
 ### pigpiod
 pigpiod is a daemon that provides hardware-timed PWM and servo pulses on GPIO pins 0-31
 
@@ -62,15 +54,18 @@ sudo pigpiod
 ### Start Videofeed
 
 Open a tab
+```
 $ cd /usr/src/mjpg-streamer/mjpg-streamer-experimental
 $ ./mjpg_streamer -o "output_http.so -w ./www" -i "input_raspicam.so -x 640 -y 480 -fps 20 -ex night"
-
+```
 ### Learning
 
 Open a third tab to get Raspberry Pi send user commands to SBrick Pi through Bluetooth
+```
 $ sudo python3 drive_api.py -s 50
-
+```
 Open a last tab to record stream and session commands
+```
 $ sudo python3 record.py
-
+```
 Happy driving
