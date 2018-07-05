@@ -38,17 +38,6 @@ Optional: you can choose a raspberry hostname of your preference by editing file
 $ sudo vi /etc/hostname
 $ reboot
 
-### pigpiod
-pigpiod is a daemon that provides hardware-timed PWM and servo pulses on GPIO pins 0-31
-
-Install and run
-
-```
-sudo apt-get update
-sudo apt-get install pigpio python-pigpio python3-pigpio
-sudo pigpiod
-```
-
 ## Usage
 
 ### Start Videofeed

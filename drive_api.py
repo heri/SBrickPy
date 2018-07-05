@@ -14,7 +14,6 @@ from operator import itemgetter
 import requests
 import time
 from time import sleep
-import pigpio
 
 class PostHandler(tornado.web.RequestHandler):
 
@@ -101,65 +100,62 @@ class Motor:
         """ Initialize  """
         self.pinControlSteering = pinControlSteering
         GPIO.setup(self.pinControlSteering, GPIO.OUT)
-
         self.pwm_steering = GPIO.PWM(self.pinControlSteering, 50)
         self.pwm_steering.start(7.5)
         
         self.pinForward = pinForward
-        self.pwm_forward = pigpio.pi()
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1000)
+        GPIO.setup(self.pinForward, GPIO.OUT)
+        self.pwm_forward = GPIO.PWM(self.pinForward, 100)
+        self.pwm_forward.start(0)
 
     def forward(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(7.5)   
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)
+        self.pwm_forward.ChangeDutyCycle(99)
         time.sleep(0.2)  
 
     def forward_left(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(2.5)  
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
+        self.pwm_forward.ChangeDutyCycle(99)  
         time.sleep(0.2)    
         self.pwm_steering.ChangeDutyCycle(7.5)  
+        self.pwm_forward.ChangeDutyCycle(0)  
         time.sleep(0.02)  
 
     def forward_right(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
-        self.pwm_steering.ChangeDutyCycle(23.5)     
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
+        self.pwm_steering.ChangeDutyCycle(12.5)     
+        self.pwm_forward.ChangeDutyCycle(99)  
         time.sleep(0.2)  
         self.pwm_steering.ChangeDutyCycle(7.5)  
-        time.sleep(0.02)  
+        self.pwm_forward.ChangeDutyCycle(0)  
+        time.sleep(0.02) 
 
     def backward(self, speed):
         """ pinBackward is the forward Pin, so we change its duty
              cycle according to speed. """
         self.pwm_steering.ChangeDutyCycle(7.5)     
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
+        self.pwm_forward.ChangeDutyCycle(0)  
 
     def left(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
-        self.pwm_steering.ChangeDutyCycle(2.5)     
-        time.sleep(0.2)  
-        self.pwm_steering.ChangeDutyCycle(7.5)     
+        self.pwm_steering.ChangeDutyCycle(2.5)   
 
     def right(self, speed):
         """ pinForward is the forward Pin, so we change its duty
              cycle according to speed. """
-        self.pwm_steering.ChangeDutyCycle(12.5)     
-        time.sleep(0.2)   
-        self.pwm_steering.ChangeDutyCycle(7.5)     
+        self.pwm_steering.ChangeDutyCycle(12.5)    
 
     def stop(self):
         """ Set the duty cycle of both control pins to zero to stop the motor. """
         self.pwm_steering.ChangeDutyCycle(7.5)  
-        self.pwm_forward.set_servo_pulsewidth(self.pinForward, 1400)   
-   
-        time.sleep(0.2)  
+        self.pwm_forward.ChangeDutyCycle(99)  
+ 
 
 def make_app(settings):
     return tornado.web.Application([
@@ -175,7 +171,7 @@ if __name__ == "__main__":
     ap.add_argument("-s", "--speed_percent", required=True, help="Between 0 and 100")
     args = vars(ap.parse_args())
     GPIO.setmode(GPIO.BOARD)
-    motor = Motor(12, 4)
+    motor = Motor(12, 35)
     log_entries = []
     settings = {
         'speed':(args['speed_percent'])
