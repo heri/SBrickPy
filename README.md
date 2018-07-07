@@ -20,7 +20,6 @@ Todos:
 
 ## Requirements
 * Python 3.4
-* pigpiod
 
 ## Prerequesites
 ```bash
