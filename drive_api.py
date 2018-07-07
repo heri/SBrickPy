@@ -112,6 +112,7 @@ class Motor:
         self.pwm_steering.ChangeDutyCycle(7.5)   
         self.pwm_forward.ChangeDutyCycle(99)
         time.sleep(0.2)  
+        self.pwm_forward.ChangeDutyCycle(0)
 
     def forward_left(self, speed):
         """ pinForward is the forward Pin, so we change its duty
